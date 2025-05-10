@@ -23,7 +23,7 @@ export default function TableInfo() {
           onChangeText={setTableName}
           className='text-white border-2 font-bold border-[#BB65FF] w-2/4 rounded-[20] py-1 px-2'
         />
-        <Link href={'/table'} asChild>
+        <Link href='/table' asChild>
           <Pressable
             className='py-2 px-4 rounded-[100] bg-white font-bold
           disabled:text-white disabled:bg-[#BB65FF] disabled:opacity-40'
