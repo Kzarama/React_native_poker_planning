@@ -1,8 +1,8 @@
-import RadialBackground from '@shared/core/images/RadialBackground';
+import RadialBackground from '@/shared/core/images/RadialBackground';
 import { Dimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export const ScreenLayout = ({ children }) => {
+export default function ScreenLayout({ children }) {
   const { width, height } = Dimensions.get('window');
   const insets = useSafeAreaInsets();
 
@@ -25,4 +25,4 @@ export const ScreenLayout = ({ children }) => {
       </View>
     </View>
   );
-};
+}

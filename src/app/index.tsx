@@ -1,6 +1,6 @@
-import PokerIcon from '@shared/core/images/PokerIcon';
-import Pragma from '@shared/core/images/Pragma';
-import { ScreenLayout } from '@shared/ui/templates/ScreenLayout';
+import PokerIcon from '@/shared/core/images/PokerIcon';
+import Pragma from '@/shared/core/images/Pragma';
+import ScreenLayout from '@/shared/ui/components/templates/ScreenLayout';
 import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { View } from 'react-native';

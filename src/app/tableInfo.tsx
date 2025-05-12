@@ -1,13 +1,12 @@
-import PokerIcon from '@shared/core/images/PokerIcon';
-import { useUserStore } from '@shared/core/store/useUserStore';
-import { ScreenLayout } from '@shared/ui/templates/ScreenLayout';
+import PokerIcon from '@/shared/core/images/PokerIcon';
+import { useStore } from '@/shared/core/store/useStore';
+import ScreenLayout from '@/shared/ui/components/templates/ScreenLayout';
 import { Link } from 'expo-router';
-import React from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 
 export default function TableInfo() {
-  const tableName = useUserStore((state) => state.tableName);
-  const setTableName = useUserStore((state) => state.setTableName);
+  const tableName = useStore((state) => state.tableName);
+  const setTableName = useStore((state) => state.setTableName);
 
   return (
     <ScreenLayout>
@@ -21,12 +20,12 @@ export default function TableInfo() {
         <TextInput
           value={tableName}
           onChangeText={setTableName}
-          className='text-white border-2 font-bold border-[#BB65FF] w-2/4 rounded-[20] py-1 px-2'
+          className='text-white border font-bold border-theme_purple w-2/4 rounded-[20] py-1 px-2'
         />
         <Link href='/table' asChild>
           <Pressable
             className='py-2 px-4 rounded-[100] bg-white font-bold
-          disabled:text-white disabled:bg-[#BB65FF] disabled:opacity-40'
+          disabled:text-white disabled:bg-theme_purple disabled:opacity-40'
             disabled={!tableName}
           >
             <Text

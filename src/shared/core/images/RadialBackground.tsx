@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 
-const RadialBackground = () => {
+export default function RadialBackground() {
   return (
     <Svg height='100%' width='100%' style={{ position: 'absolute' }}>
       <Defs>
@@ -25,6 +25,4 @@ const RadialBackground = () => {
       <Rect x='0' y='0' width='100%' height='100%' fill='url(#grad)' />
     </Svg>
   );
-};
-
-export default RadialBackground;
+}
