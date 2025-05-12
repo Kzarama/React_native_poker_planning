@@ -3,7 +3,9 @@
     "baseUrl": "./src",
     "paths": {
       "@/components/*": ["components/*"],
-      "@/shared/*": ["shared/*"]
+      "@/shared/*": ["shared/*"],
+      "@/user/*": ["user/*"],
+      "@/table/*": ["table/*"]
     }
   },
   "extends": "expo/tsconfig.base"

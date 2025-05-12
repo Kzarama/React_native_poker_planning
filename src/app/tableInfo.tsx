@@ -1,12 +1,12 @@
 import PokerIcon from '@/shared/core/images/PokerIcon';
-import { useStore } from '@/shared/core/store/useStore';
 import ScreenLayout from '@/shared/ui/components/templates/ScreenLayout';
+import { useTableStore } from '@/table/core/store/useTableStore';
 import { Link } from 'expo-router';
 import { Pressable, Text, TextInput, View } from 'react-native';
 
 export default function TableInfo() {
-  const tableName = useStore((state) => state.tableName);
-  const setTableName = useStore((state) => state.setTableName);
+  const tableName = useTableStore((state) => state.tableName);
+  const setTableName = useTableStore((state) => state.setTableName);
 
   return (
     <ScreenLayout>

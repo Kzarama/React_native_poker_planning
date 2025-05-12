@@ -3,7 +3,7 @@ import RadioButton from '@/shared/ui/components/atoms/RadioButton';
 import { useState } from 'react';
 import { View } from 'react-native';
 
-export interface IProps {
+interface IProps {
   buttonsInfo: IRadioSelected[];
   setValue: (value: string) => void;
 }

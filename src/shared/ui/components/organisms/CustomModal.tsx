@@ -6,7 +6,7 @@ interface IProps {
   children: any;
 }
 
-export default function MyModal({ modalOpen, children }: IProps) {
+export default function CustomModal({ modalOpen, children }: IProps) {
   return (
     <Modal transparent animationType='fade' visible={modalOpen}>
       <View className='flex-1 justify-center items-center'>

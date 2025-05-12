@@ -1,7 +1,7 @@
 import { IRadioSelected } from '@/shared/core/utils/interfaces';
 import { Pressable, Text, View } from 'react-native';
 
-export interface IProps {
+interface IProps {
   radioInfo: IRadioSelected;
   radioSelected: IRadioSelected | undefined;
   selectValue: (selected: IRadioSelected) => void;

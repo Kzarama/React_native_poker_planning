@@ -1,22 +1,22 @@
-import { useStore } from '@/shared/core/store/useStore';
-import MyModal from '@/shared/ui/components/organisms/CustomModal';
+import CustomButton from '@/shared/ui/components/atoms/CustomButton';
 import RadioGroup from '@/shared/ui/components/molecules/RadioGroup';
+import MyModal from '@/shared/ui/components/organisms/CustomModal';
+import { useUserStore } from '@/user/core/store/useUserStore';
 import { useMemo, useState } from 'react';
-import { Pressable, Text, TextInput, View } from 'react-native';
-import { IUser, UserType } from 'user/interfaces';
-import CustomButton from '../atoms/CustomButton';
+import { Text, TextInput } from 'react-native';
+import { IUser, UserType } from 'user/core/utils/interfaces';
 
 export default function ModalUser() {
   const [userInfo, setUserInfo] = useState<IUser | undefined>();
   const [error, setError] = useState(undefined);
   const [modalOpen, setModalOpen] = useState(true);
 
-  const setUserInfoStore = useStore((state) => state.setUserInfo);
+  const setUserInfoStore = useUserStore((state) => state.setUserInfo);
 
   const setName = (name: string) => setUserInfo((prev) => ({ ...prev, name }));
 
   const setUserType = (userType: UserType) =>
-    setUserInfo((prev) => ({ ...prev, userType }));
+    setUserInfo((prev) => ({ ...prev, userType, userRole: 'owner' }));
 
   const handleContinue = () => {
     setUserInfoStore(userInfo);
@@ -26,9 +26,9 @@ export default function ModalUser() {
   const checkDisabledButton = useMemo(() => {
     setError(undefined);
     const hasSpecialChar = /[_.,*#\/\-]/.test(userInfo?.name);
-    const digits = (userInfo?.name.match(/\d/g) || []).length;
+    const digits = (userInfo?.name?.match(/\d/g) || []).length;
 
-    if (userInfo?.name.length < 5 || userInfo?.name.length > 20) {
+    if (userInfo?.name?.length < 5 || userInfo?.name?.length > 20) {
       setError('Debe tener entre 5 y 20 caracteres.');
     } else if (hasSpecialChar) {
       setError('No puede contener caracteres especiales.');
