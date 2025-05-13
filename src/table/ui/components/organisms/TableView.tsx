@@ -17,12 +17,17 @@ export default function TableView({ userInfo }: IProps) {
   const users = useTableStore((state) => state.users);
   const setUsers = useTableStore((state) => state.setUsers);
 
-  const userCardVerification = () => {
-    if (userInfo.userType === 'player') {
-      if (userInfo.vote !== undefined && !showScores) return 'active';
+  const userCardVerification = ({ userType, vote }: IUser) => {
+    if (userType === 'player') {
+      if (vote !== undefined && !showScores) return 'active';
     } else {
       return 'user';
     }
+  };
+
+  const revealCards = () => {
+    if (userInfo.userType === 'viewer') setUsers(vote(users));
+    setShowScores(true);
   };
 
   useEffect(() => {
@@ -47,7 +52,7 @@ export default function TableView({ userInfo }: IProps) {
                 <CustomButton
                   className='w-[80] h-[50]'
                   text='Revelar cartas'
-                  action={() => setShowScores(true)}
+                  action={revealCards}
                 />
               )}
             </View>
@@ -59,7 +64,7 @@ export default function TableView({ userInfo }: IProps) {
           score={String(userInfo.vote)}
           showScore={showScores}
           position={`bottom-[${showScores ? '140' : '240'}]`}
-          type={userCardVerification()}
+          type={userCardVerification(userInfo)}
         />
 
         {users.map((player) => {
@@ -71,19 +76,17 @@ export default function TableView({ userInfo }: IProps) {
                 score={player.vote}
                 showScore={showScores}
                 position={player.position}
-                type={
-                  player.vote !== undefined && !showScores
-                    ? 'active'
-                    : undefined
-                }
+                type={userCardVerification(player)}
               />
             )
           );
         })}
       </View>
 
-      {userInfo?.userType === 'player' && (
-        <CardsView vote={userInfo.vote} showScores={showScores} />
+      {showScores ? (
+        userInfo?.userType === 'player' && <VotesView />
+      ) : (
+        <CardsView vote={userInfo.vote} />
       )}
     </View>
   );

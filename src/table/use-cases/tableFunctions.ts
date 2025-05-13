@@ -25,6 +25,8 @@ export const vote = (users: IUser[]) => {
   const scores = cards;
   return users.map((player) => ({
     ...player,
-    vote: scores[Math.floor(Math.random() * scores.length)],
+    vote:
+      player.userType !== 'viewer' &&
+      scores[Math.floor(Math.random() * scores.length)],
   }));
 };
