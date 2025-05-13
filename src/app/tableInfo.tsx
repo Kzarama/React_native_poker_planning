@@ -1,12 +1,25 @@
 import PokerIcon from '@/shared/core/images/PokerIcon';
+import { verifyText } from '@/shared/core/utils/TextVerification';
 import ScreenLayout from '@/shared/ui/components/templates/ScreenLayout';
 import { useTableStore } from '@/table/core/store/useTableStore';
 import { Link } from 'expo-router';
+import { useMemo, useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 
 export default function TableInfo() {
+  const [error, setError] = useState(undefined);
+
   const tableName = useTableStore((state) => state.tableName);
   const setTableName = useTableStore((state) => state.setTableName);
+
+  const checkDisabledButton = useMemo(() => {
+    if (!tableName) return true;
+
+    const textError = verifyText(tableName);
+    setError(textError);
+
+    return Boolean(textError);
+  }, [tableName]);
 
   return (
     <ScreenLayout>
@@ -22,15 +35,18 @@ export default function TableInfo() {
           onChangeText={setTableName}
           className='text-white border font-bold border-theme_purple w-2/4 rounded-[20] py-1 px-2'
         />
+
+        {error && <Text className='text-red-400 text-center'>{error}</Text>}
+
         <Link href='/table' asChild>
           <Pressable
             className='py-2 px-4 rounded-[100] bg-white font-bold
           disabled:text-white disabled:bg-theme_purple disabled:opacity-40'
-            disabled={!tableName}
+            disabled={checkDisabledButton}
           >
             <Text
               className='text-gray-800 disabled:text-white'
-              disabled={!tableName}
+              disabled={checkDisabledButton}
             >
               Crear partida
             </Text>

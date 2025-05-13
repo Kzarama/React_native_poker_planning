@@ -1,3 +1,4 @@
+import { verifyText } from '@/shared/core/utils/TextVerification';
 import CustomButton from '@/shared/ui/components/atoms/CustomButton';
 import RadioGroup from '@/shared/ui/components/molecules/RadioGroup';
 import MyModal from '@/shared/ui/components/organisms/CustomModal';
@@ -24,26 +25,12 @@ export default function ModalUser() {
   };
 
   const checkDisabledButton = useMemo(() => {
-    setError(undefined);
-    const hasSpecialChar = /[_.,*#\/\-]/.test(userInfo?.name);
-    const digits = (userInfo?.name?.match(/\d/g) || []).length;
+    if (!userInfo?.name) return true;
 
-    if (userInfo?.name?.length < 5 || userInfo?.name?.length > 20) {
-      setError('Debe tener entre 5 y 20 caracteres.');
-    } else if (hasSpecialChar) {
-      setError('No puede contener caracteres especiales.');
-    } else if (digits > 3) {
-      setError('Máximo 3 números permitidos.');
-    } else if (/^\d+$/.test(userInfo?.name)) {
-      setError('No puede ser solo números.');
-    }
+    const textError = verifyText(userInfo?.name);
+    setError(textError);
 
-    return !(
-      !error &&
-      userInfo?.name &&
-      userInfo?.name !== '' &&
-      userInfo?.userType
-    );
+    return Boolean(textError);
   }, [userInfo]);
 
   return (
