@@ -1,4 +1,4 @@
-import { verifyText } from '@/shared/core/utils/TextVerification';
+import { verifyText } from '@/shared/core/utils/textFunctions';
 import CustomButton from '@/shared/ui/components/atoms/CustomButton';
 import RadioGroup from '@/shared/ui/components/molecules/RadioGroup';
 import MyModal from '@/shared/ui/components/organisms/CustomModal';

@@ -63,9 +63,10 @@ export default function TableView({ userInfo }: IProps) {
             <View className='w-[160] h-[320] border-2 rounded-full border-[#3e1684] items-center justify-center'>
               {userInfo.isAdmin && (
                 <CustomButton
-                  className='w-[80] h-[50]'
-                  text={showScores ? 'Reiniciar partida' : 'Revelar cartas'}
+                  className='w-[90] h-[50]'
+                  text={showScores ? 'Nueva votación' : 'Revelar cartas'}
                   action={handleTableButton}
+                  variable='purple'
                 />
               )}
             </View>
@@ -76,7 +77,7 @@ export default function TableView({ userInfo }: IProps) {
           userName={userInfo?.name}
           score={String(userInfo.vote)}
           showScore={showScores}
-          position={`bottom-[${showScores ? '140' : '240'}]`}
+          position={showScores ? 'bottom-[140]' : 'bottom-[240]'}
           type={userCardVerification(userInfo)}
         />
 
@@ -97,9 +98,9 @@ export default function TableView({ userInfo }: IProps) {
       </View>
 
       {showScores ? (
-        userInfo?.userType === 'player' && <VotesView />
+        <VotesView />
       ) : (
-        <CardsView vote={userInfo.vote} />
+        userInfo?.userType === 'player' && <CardsView vote={userInfo.vote} />
       )}
     </View>
   );

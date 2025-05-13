@@ -1,5 +1,5 @@
 import PokerIcon from '@/shared/core/images/PokerIcon';
-import { verifyText } from '@/shared/core/utils/TextVerification';
+import { verifyText } from '@/shared/core/utils/textFunctions';
 import ScreenLayout from '@/shared/ui/components/templates/ScreenLayout';
 import { useTableStore } from '@/table/core/store/useTableStore';
 import { Link } from 'expo-router';
