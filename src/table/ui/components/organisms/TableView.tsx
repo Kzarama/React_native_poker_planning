@@ -1,7 +1,7 @@
 import CustomButton from '@/shared/ui/components/atoms/CustomButton';
 import { useTableStore } from '@/table/core/store/useTableStore';
 import CardsView from '@/table/ui/components/molecules/CardsView';
-import { addPlayer, vote } from '@/table/use-cases/table';
+import { addPlayer, vote } from '@/table/use-cases/tableFunctions';
 import { IUser } from '@/user/core/utils/interfaces';
 import { UserView } from '@/user/ui/components/molecules/UserView';
 import { useEffect, useState } from 'react';
@@ -26,7 +26,9 @@ export default function TableView({ userInfo }: IProps) {
   };
 
   useEffect(() => {
-    setUsers(addPlayer());
+    if (users.length === 0) {
+      setUsers(addPlayer());
+    }
   }, []);
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export default function TableView({ userInfo }: IProps) {
         <View className='w-[200] h-[360] p-2 border-2 rounded-full border-[#6429CD]'>
           <View className='w-[180] h-[340] p-2 border-2 rounded-full border-[#BDBDFF99]'>
             <View className='w-[160] h-[320] border-2 rounded-full border-[#3e1684] items-center justify-center'>
-              {userInfo.userRole === 'owner' && (
+              {userInfo.isAdmin && (
                 <CustomButton
                   className='w-[80] h-[50]'
                   text='Revelar cartas'

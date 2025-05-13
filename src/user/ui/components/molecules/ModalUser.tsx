@@ -17,7 +17,7 @@ export default function ModalUser() {
   const setName = (name: string) => setUserInfo((prev) => ({ ...prev, name }));
 
   const setUserType = (userType: UserType) =>
-    setUserInfo((prev) => ({ ...prev, userType, userRole: 'owner' }));
+    setUserInfo((prev) => ({ ...prev, userType, isAdmin: true }));
 
   const handleContinue = () => {
     setUserInfoStore(userInfo);

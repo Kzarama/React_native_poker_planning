@@ -1,7 +1,7 @@
 import { cards, mockPlayers } from '@/shared/core/utils/Mocks';
 import { IUser } from '@/user/core/utils/interfaces';
 
-export const addPlayer = () => {
+export const addPlayer = (): IUser[] => {
   const positions = [
     '-top-[85]',
     'top-[60] left-[30]',
@@ -17,6 +17,7 @@ export const addPlayer = () => {
     vote: undefined,
     visible: true,
     position: positions.sort(() => Math.random() - 0.5).pop(),
+    userType: Math.random() < 0.1 ? 'viewer' : 'player',
   }));
 };
 

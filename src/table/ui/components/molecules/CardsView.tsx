@@ -28,7 +28,7 @@ export default function CardsView({ vote, showScores }: IProps) {
 
   if (showScores) {
     const usersResult = users
-      .map((user) => (typeof user.vote === 'number' ? user.vote : 0))
+      .map(({ vote }) => (typeof vote === 'number' ? vote : 0))
       .reduce((sum, vote) => sum + vote, 0);
 
     const result =

@@ -1,10 +1,11 @@
-export const mockPlayers: any = [
+import { IUser } from '@/user/core/utils/interfaces';
+
+export const mockPlayers: IUser[] = [
   {
     id: '1',
     name: 'Oscar',
     vote: 1,
     userType: 'player',
-    userRole: 'player',
     visible: false,
     position: '',
   },
@@ -13,7 +14,6 @@ export const mockPlayers: any = [
     name: 'Vane',
     vote: 1,
     userType: 'player',
-    userRole: 'player',
     visible: false,
     position: '',
   },
@@ -22,7 +22,6 @@ export const mockPlayers: any = [
     name: 'Sarah',
     vote: 1,
     userType: 'player',
-    userRole: 'player',
     visible: false,
     position: '',
   },
@@ -31,7 +30,6 @@ export const mockPlayers: any = [
     name: 'Kiara',
     vote: 1,
     userType: 'player',
-    userRole: 'player',
     visible: false,
     position: '',
   },
@@ -40,7 +38,6 @@ export const mockPlayers: any = [
     name: 'Pedro',
     vote: 1,
     userType: 'player',
-    userRole: 'player',
     visible: false,
     position: '',
   },
@@ -49,7 +46,6 @@ export const mockPlayers: any = [
     name: 'Ana',
     vote: 1,
     userType: 'player',
-    userRole: 'player',
     visible: false,
     position: '',
   },
@@ -58,7 +54,6 @@ export const mockPlayers: any = [
     name: 'Carlos',
     vote: 1,
     userType: 'player',
-    userRole: 'player',
     visible: false,
     position: '',
   },
