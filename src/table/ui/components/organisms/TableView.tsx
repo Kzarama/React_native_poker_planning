@@ -1,7 +1,13 @@
 import CustomButton from '@/shared/ui/components/atoms/CustomButton';
 import { useTableStore } from '@/table/core/store/useTableStore';
 import CardsView from '@/table/ui/components/molecules/CardsView';
-import { addPlayer, vote } from '@/table/use-cases/tableFunctions';
+import VotesView from '@/table/ui/components/molecules/VotesView';
+import {
+  addPlayer,
+  resetPlayers,
+  vote,
+} from '@/table/use-cases/tableFunctions';
+import { useUserStore } from '@/user/core/store/useUserStore';
 import { IUser } from '@/user/core/utils/interfaces';
 import { UserView } from '@/user/ui/components/molecules/UserView';
 import { useEffect, useState } from 'react';
@@ -16,6 +22,7 @@ export default function TableView({ userInfo }: IProps) {
 
   const users = useTableStore((state) => state.users);
   const setUsers = useTableStore((state) => state.setUsers);
+  const setUserInfo = useUserStore((state) => state.setUserInfo);
 
   const userCardVerification = ({ userType, vote }: IUser) => {
     if (userType === 'player') {
@@ -25,7 +32,13 @@ export default function TableView({ userInfo }: IProps) {
     }
   };
 
-  const revealCards = () => {
+  const handleTableButton = () => {
+    if (showScores) {
+      setUsers(resetPlayers(users));
+      setUserInfo({ ...userInfo, vote: undefined });
+      setShowScores(false);
+      return;
+    }
     if (userInfo.userType === 'viewer') setUsers(vote(users));
     setShowScores(true);
   };
@@ -51,8 +64,8 @@ export default function TableView({ userInfo }: IProps) {
               {userInfo.isAdmin && (
                 <CustomButton
                   className='w-[80] h-[50]'
-                  text='Revelar cartas'
-                  action={revealCards}
+                  text={showScores ? 'Reiniciar partida' : 'Revelar cartas'}
+                  action={handleTableButton}
                 />
               )}
             </View>

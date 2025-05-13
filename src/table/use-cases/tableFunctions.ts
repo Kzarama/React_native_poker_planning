@@ -30,3 +30,10 @@ export const vote = (users: IUser[]) => {
       scores[Math.floor(Math.random() * scores.length)],
   }));
 };
+
+export const resetPlayers = (users: IUser[]): IUser[] => {
+  return users.map((player) => ({
+    ...player,
+    vote: undefined,
+  }));
+};
