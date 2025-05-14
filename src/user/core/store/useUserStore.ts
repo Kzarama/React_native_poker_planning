@@ -1,4 +1,4 @@
-import { IUser } from '@/user/core/utils/interfaces';
+import { IUser } from '@/user/domain/userModel';
 import { create } from 'zustand';
 
 type userStore = {

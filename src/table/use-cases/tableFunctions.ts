@@ -1,5 +1,5 @@
 import { cards, mockPlayers } from '@/shared/core/utils/Mocks';
-import { IUser } from '@/user/core/utils/interfaces';
+import { IUser } from '@/user/domain/userModel';
 
 export const addPlayer = (): IUser[] => {
   const positions = [

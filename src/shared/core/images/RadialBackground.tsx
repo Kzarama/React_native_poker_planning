@@ -1,4 +1,3 @@
-import React from 'react';
 import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 
 export default function RadialBackground() {

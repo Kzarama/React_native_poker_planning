@@ -8,7 +8,7 @@ import {
   vote,
 } from '@/table/use-cases/tableFunctions';
 import { useUserStore } from '@/user/core/store/useUserStore';
-import { IUser } from '@/user/core/utils/interfaces';
+import { IUser } from '@/user/domain/userModel';
 import { UserView } from '@/user/ui/components/molecules/UserView';
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';

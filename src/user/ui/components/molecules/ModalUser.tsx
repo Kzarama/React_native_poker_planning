@@ -3,9 +3,9 @@ import CustomButton from '@/shared/ui/components/atoms/CustomButton';
 import RadioGroup from '@/shared/ui/components/molecules/RadioGroup';
 import MyModal from '@/shared/ui/components/organisms/CustomModal';
 import { useUserStore } from '@/user/core/store/useUserStore';
+import { IUser, UserType } from '@/user/domain/userModel';
 import { useMemo, useState } from 'react';
 import { Text, TextInput } from 'react-native';
-import { IUser, UserType } from 'user/core/utils/interfaces';
 
 export default function ModalUser() {
   const [userInfo, setUserInfo] = useState<IUser | undefined>();

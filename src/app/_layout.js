@@ -1,7 +1,7 @@
 import { Slot } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
 import '../../global.css';
-import { StatusBar } from 'expo-status-bar';
 
 export default function Layout() {
   return (
