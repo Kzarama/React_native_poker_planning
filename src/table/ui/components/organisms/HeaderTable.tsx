@@ -4,7 +4,7 @@ import CustomModal from '@/shared/ui/components/organisms/CustomModal';
 import { generateTableLink } from '@/table/use-cases/linkFunctions';
 import RoundedName from '@/user/ui/components/atoms/RoundedName';
 import * as Clipboard from 'expo-clipboard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 interface IProps {
@@ -15,8 +15,7 @@ interface IProps {
 export default function HeaderTable({ tableName, userName }: IProps) {
   const [showShare, setShowShare] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
-
-  const tableLink = generateTableLink();
+  const [tableLink, setTableLink] = useState(undefined);
 
   const copyLink = () => {
     Clipboard.setStringAsync(tableLink);
@@ -25,6 +24,10 @@ export default function HeaderTable({ tableName, userName }: IProps) {
       setCopiedText(false);
     }, 1500);
   };
+
+  useEffect(() => {
+    setTableLink(generateTableLink());
+  }, []);
 
   return (
     <View className='flex-row items-center justify-between gap-3 mx-5'>
@@ -35,7 +38,10 @@ export default function HeaderTable({ tableName, userName }: IProps) {
       </Pressable>
 
       {showShare && (
-        <CustomModal modalOpen={showShare}>
+        <CustomModal
+          modalOpen={showShare}
+          closeModal={() => setShowShare(false)}
+        >
           <Text className='text-white text-3xl font-extrabold text-center'>
             {userName}
           </Text>
