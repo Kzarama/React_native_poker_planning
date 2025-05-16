@@ -1,7 +1,7 @@
 import { verifyText } from '@/shared/core/utils/textFunctions';
 import CustomButton from '@/shared/ui/components/atoms/CustomButton';
 import RadioGroup from '@/shared/ui/components/molecules/RadioGroup';
-import MyModal from '@/shared/ui/components/organisms/CustomModal';
+import CustomModal from '@/shared/ui/components/organisms/CustomModal';
 import { useUserStore } from '@/user/core/store/useUserStore';
 import { IUser, UserType } from '@/user/domain/userModel';
 import { useMemo, useState } from 'react';
@@ -12,15 +12,17 @@ export default function ModalUser() {
   const [error, setError] = useState(undefined);
   const [modalOpen, setModalOpen] = useState(true);
 
+  const userInfoStore = useUserStore((state) => state.userInfo);
   const setUserInfoStore = useUserStore((state) => state.setUserInfo);
 
-  const setName = (name: string) => setUserInfo((prev) => ({ ...prev, name }));
+  const setName = (name: string) =>
+    setUserInfo((prev) => ({ ...prev, id: name, name }));
 
   const setUserType = (userType: UserType) =>
-    setUserInfo((prev) => ({ ...prev, userType, isAdmin: true }));
+    setUserInfo((prev) => ({ ...prev, userType }));
 
   const handleContinue = () => {
-    setUserInfoStore(userInfo);
+    setUserInfoStore({ ...userInfoStore, ...userInfo });
     setModalOpen(false);
   };
 
@@ -34,7 +36,7 @@ export default function ModalUser() {
   }, [userInfo]);
 
   return (
-    <MyModal modalOpen={modalOpen}>
+    <CustomModal modalOpen={modalOpen}>
       <Text className='text-white font-semibold'>Tu nombre</Text>
       <TextInput
         className='border border-theme_purple rounded-full px-4 py-2 text-white'
@@ -57,6 +59,6 @@ export default function ModalUser() {
         disabled={checkDisabledButton}
         action={handleContinue}
       />
-    </MyModal>
+    </CustomModal>
   );
 }

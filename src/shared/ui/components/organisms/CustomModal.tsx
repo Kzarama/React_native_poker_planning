@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import { useOrientation } from '@/table/core/hooks/useOrientation';
 import { BlurView } from 'expo-blur';
 import { Modal, Pressable } from 'react-native';
 
@@ -12,8 +14,22 @@ export default function CustomModal({
   closeModal,
   children,
 }: IProps) {
+  const orientation = useOrientation();
+
+  const [renderKey, setRenderKey] = useState(0);
+
+  useEffect(() => {
+    setRenderKey((prev) => prev + 1);
+  }, [orientation]);
+
   return (
-    <Modal transparent animationType='fade' visible={modalOpen}>
+    <Modal
+      transparent
+      animationType='fade'
+      visible={modalOpen}
+      onRequestClose={closeModal}
+      supportedOrientations={['portrait', 'landscape']}
+    >
       <Pressable
         onPress={closeModal}
         className='flex-1 justify-center items-center'
@@ -21,8 +37,10 @@ export default function CustomModal({
         <BlurView intensity={20} tint='dark' className='absolute inset-0' />
 
         <Pressable
-          onPress={() => {}}
-          className='bg-theme_dark_purple border border-theme_purple rounded-2xl p-6 w-[300px] gap-5 shadow-xl'
+          key={renderKey}
+          className={
+            'bg-theme_dark_purple border border-theme_purple rounded-2xl p-6 gap-5 shadow-xl w-[300] h-[250] justify-center'
+          }
         >
           {children}
         </Pressable>

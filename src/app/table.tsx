@@ -13,9 +13,9 @@ export default function Table() {
     <ScreenLayout>
       <HeaderTable tableName={tableName} userName={userInfo?.name} />
 
-      {userInfo && <TableView userInfo={userInfo} />}
+      {<TableView userInfo={userInfo} />}
 
-      {!userInfo && <ModalUser />}
+      {!userInfo.id && <ModalUser />}
     </ScreenLayout>
   );
 }

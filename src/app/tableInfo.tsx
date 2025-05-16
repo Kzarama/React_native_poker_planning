@@ -1,6 +1,7 @@
 import PokerIcon from '@/shared/core/images/PokerIcon';
 import { verifyText } from '@/shared/core/utils/textFunctions';
 import ScreenLayout from '@/shared/ui/components/templates/ScreenLayout';
+import { useOrientation } from '@/table/core/hooks/useOrientation';
 import { useTableStore } from '@/table/core/store/useTableStore';
 import { Link } from 'expo-router';
 import { useMemo, useState } from 'react';
@@ -8,6 +9,7 @@ import { Pressable, Text, TextInput, View } from 'react-native';
 
 export default function TableInfo() {
   const [error, setError] = useState(undefined);
+  const orientation = useOrientation();
 
   const tableName = useTableStore((state) => state.tableName);
   const setTableName = useTableStore((state) => state.setTableName);
@@ -23,7 +25,9 @@ export default function TableInfo() {
 
   return (
     <ScreenLayout>
-      <View className='flex-row items-center gap-3 ml-6'>
+      <View
+        className={`flex-row items-center gap-3 ${orientation === 'portrait' ? 'ml-6' : 'ml-28'}`}
+      >
         <PokerIcon />
         <Text className='text-xl text-white'>Crear partida</Text>
       </View>

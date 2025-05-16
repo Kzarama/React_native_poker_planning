@@ -1,28 +1,32 @@
 import RadialBackground from '@/shared/core/images/RadialBackground';
-import { Dimensions, View } from 'react-native';
+import { useOrientation } from '@/table/core/hooks/useOrientation';
+import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function ScreenLayout({ children }) {
-  const { width, height } = Dimensions.get('window');
+  const orientation = useOrientation();
   const insets = useSafeAreaInsets();
+
+  const orientationClasses = () => {
+    const className = 'flex-row';
+    if (orientation === 'landscape-left') {
+      return `${className} mr-16`;
+    } else if (orientation === 'landscape-right') {
+      return `${className} ml-16`;
+    }
+  };
 
   return (
     <View
+      className='w-full h-full bg-[#1f0d3f]'
       style={{
-        width,
-        height,
+        paddingTop: insets.top + 10,
+        paddingBottom: insets.bottom,
       }}
     >
       <RadialBackground />
-      <View
-        style={{
-          paddingTop: insets.top,
-          paddingBottom: insets.bottom,
-          flex: 1,
-        }}
-      >
-        {children}
-      </View>
+
+      <View className={`flex-1 ${orientationClasses()}`}>{children}</View>
     </View>
   );
 }

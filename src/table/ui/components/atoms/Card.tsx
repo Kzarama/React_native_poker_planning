@@ -4,7 +4,7 @@ import { Animated, Pressable, Text } from 'react-native';
 interface IProps {
   score: number | string;
   active: boolean;
-  selectCard: React.Dispatch<React.SetStateAction<number | string>>;
+  selectCard?: React.Dispatch<React.SetStateAction<number | string>>;
 }
 
 export default function Card({ score, active, selectCard }: IProps) {
@@ -20,7 +20,7 @@ export default function Card({ score, active, selectCard }: IProps) {
   }, [active]);
 
   return (
-    <Pressable onPress={() => selectCard(score)}>
+    <Pressable onPress={() => selectCard?.(score)}>
       <Animated.View
         style={{ transform: [{ translateY }] }}
         className={`w-12 h-20 border border-theme_purple items-center justify-center rounded-md

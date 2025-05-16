@@ -12,11 +12,24 @@ export const addPlayer = (): IUser[] => {
     'top-[240] right-[30]',
   ];
 
+  const positionsLandscape = [
+    'top-[60] left-[30]',
+    '-top-[85] left-[170]',
+    '-top-[85] left-[245]',
+    '-top-[85] left-[320]',
+    'top-[190] left-[170]',
+    'top-[190] left-[245]',
+    'top-[190] left-[320]',
+  ];
+
   return mockPlayers.map((player) => ({
     ...player,
     vote: undefined,
     visible: true,
-    position: positions.sort(() => Math.random() - 0.5).pop(),
+    position: {
+      portrait: positions.sort(() => Math.random() - 0.5).pop(),
+      landscape: positionsLandscape.sort(() => Math.random() - 0.5).pop(),
+    },
     userType: Math.random() < 0.1 ? 'viewer' : 'player',
   }));
 };

@@ -5,7 +5,7 @@ export interface IUser {
   isAdmin?: boolean;
   vote: number | string;
   visible: boolean;
-  position: string;
+  position: { portrait: string; landscape: string };
 }
 
 export type UserType = 'player' | 'viewer';

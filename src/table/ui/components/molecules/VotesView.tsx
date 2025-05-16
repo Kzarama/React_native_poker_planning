@@ -1,11 +1,13 @@
+import { useOrientation } from '@/table/core/hooks/useOrientation';
 import { useTableStore } from '@/table/core/store/useTableStore';
 import Card from '@/table/ui/components/atoms/Card';
 import { useUserStore } from '@/user/core/store/useUserStore';
-import { ScrollView, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 
 export default function VotesView() {
   const userInfo = useUserStore((state) => state.userInfo);
   const users = useTableStore((state) => state.users);
+  const orientation = useOrientation();
 
   const votingUsers = [
     ...users.filter(({ userType }) => userType === 'player'),
@@ -42,17 +44,24 @@ export default function VotesView() {
   };
 
   return (
-    <View className='px-4 flex-row items-center'>
-      <ScrollView horizontal className='pb-3'>
-        {getCardsInfo().map(({ score, votes }) => (
-          <View key={score} className='mx-2 items-center justify-center gap-2'>
-            <Card score={score} active={false} selectCard={() => {}} />
+    <View
+      className={`items-center ${orientation === 'portrait' ? 'px-4 flex-row' : 'mr-24 shrink-0 flex-col w-[210] gap-5'}`}
+    >
+      <FlatList
+        data={getCardsInfo()}
+        key={orientation}
+        keyExtractor={(item) => String(item.score)}
+        horizontal={orientation === 'portrait'}
+        {...(orientation !== 'portrait' && { numColumns: 2 })}
+        renderItem={({ item }) => (
+          <View className='mx-2 my-1 gap-1 grow justify-center items-center'>
+            <Card score={item.score} active={false} selectCard={() => {}} />
             <Text className='text-white text-center'>
-              {`${votes} ${votes === 1 ? 'Voto' : 'Votos'}`}
+              {`${item.votes} ${item.votes === 1 ? 'Voto' : 'Votos'}`}
             </Text>
           </View>
-        ))}
-      </ScrollView>
+        )}
+      />
 
       <View className='ml-4 gap-2'>
         <Text className='text-white'>Promedio</Text>

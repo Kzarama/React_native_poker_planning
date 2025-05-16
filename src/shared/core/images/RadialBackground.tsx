@@ -1,8 +1,17 @@
 import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
+import { useWindowDimensions } from 'react-native';
 
 export default function RadialBackground() {
+  const { width, height } = useWindowDimensions();
+
   return (
-    <Svg height='100%' width='100%' style={{ position: 'absolute' }}>
+    <Svg
+      height={height}
+      width={width}
+      viewBox={`0 0 ${width} ${height}`}
+      preserveAspectRatio='none'
+      style={{ position: 'absolute', top: 0, left: 0 }}
+    >
       <Defs>
         <RadialGradient
           id='grad'
@@ -21,7 +30,7 @@ export default function RadialBackground() {
           />
         </RadialGradient>
       </Defs>
-      <Rect x='0' y='0' width='100%' height='100%' fill='url(#grad)' />
+      <Rect x='0' y='0' width={width} height={height} fill='url(#grad)' />
     </Svg>
   );
 }

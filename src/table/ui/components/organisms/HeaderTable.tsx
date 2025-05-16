@@ -1,6 +1,7 @@
 import PokerIcon from '@/shared/core/images/PokerIcon';
 import CustomButton from '@/shared/ui/components/atoms/CustomButton';
 import CustomModal from '@/shared/ui/components/organisms/CustomModal';
+import { useOrientation } from '@/table/core/hooks/useOrientation';
 import { generateTableLink } from '@/table/use-cases/linkFunctions';
 import RoundedName from '@/user/ui/components/atoms/RoundedName';
 import * as Clipboard from 'expo-clipboard';
@@ -16,6 +17,7 @@ export default function HeaderTable({ tableName, userName }: IProps) {
   const [showShare, setShowShare] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
   const [tableLink, setTableLink] = useState(undefined);
+  const orientation = useOrientation();
 
   const copyLink = () => {
     Clipboard.setStringAsync(tableLink);
@@ -30,9 +32,13 @@ export default function HeaderTable({ tableName, userName }: IProps) {
   }, []);
 
   return (
-    <View className='flex-row items-center justify-between gap-3 mx-5'>
+    <View
+      className={`flex-row items-center justify-between gap-3 mx-5  ${orientation !== 'portrait' && 'absolute w-full pt-3 pl-3 pr-14'}`}
+    >
       <PokerIcon />
-      <Text className='text-3xl font-extrabold text-white'>{tableName}</Text>
+      {orientation === 'portrait' && (
+        <Text className='text-3xl font-extrabold text-white'>{tableName}</Text>
+      )}
       <Pressable onPress={() => setShowShare(true)}>
         <RoundedName text={userName} />
       </Pressable>

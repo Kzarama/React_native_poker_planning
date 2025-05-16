@@ -1,14 +1,16 @@
 import { cards } from '@/shared/core/utils/Mocks';
+import { useOrientation } from '@/table/core/hooks/useOrientation';
 import Card from '@/table/ui/components/atoms/Card';
 import { useUserStore } from '@/user/core/store/useUserStore';
 import { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 
 interface IProps {
   vote: string | number;
 }
 
 export default function CardsView({ vote }: IProps) {
+  const orientation = useOrientation();
   const userInfo = useUserStore((state) => state.userInfo);
   const setUserInfo = useUserStore((state) => state.setUserInfo);
 
@@ -22,22 +24,38 @@ export default function CardsView({ vote }: IProps) {
   };
 
   return (
-    <View className='flex-1 gap-6 absolute bottom-6 w-[100vw]'>
-      <Text className='text-white font-bold text-center'>
-        Elige una carta 👇
+    <View
+      className={`gap-6 items-center ${orientation === 'portrait' ? 'items-center w-full' : 'mr-24 shrink-0 flex-row'}`}
+    >
+      <Text
+        className={`text-white font-bold text-center ${orientation === 'portrait' ? '' : 'w-[80]'}`}
+      >
+        {`Elige una carta ${orientation === 'portrait' ? '👇' : ' 👉'}`}
       </Text>
-      <ScrollView horizontal className='overflow-visible'>
-        <View className='mx-4 mb-4 flex-row gap-4'>
-          {cards.map((score) => (
+
+      <FlatList
+        data={cards}
+        key={orientation}
+        keyExtractor={(item) => String(item)}
+        horizontal={orientation === 'portrait'}
+        {...(orientation !== 'portrait' && { numColumns: 2 })}
+        renderItem={({ item }) => (
+          <View className='m-2'>
             <Card
-              key={score}
-              score={score}
-              active={selectedCard === score}
+              score={item}
+              active={selectedCard === item}
               selectCard={handleVote}
             />
-          ))}
-        </View>
-      </ScrollView>
+          </View>
+        )}
+        ListEmptyComponent={
+          <View>
+            <Text className='text-white text-2xl font-bold text-center'>
+              No hay Cartas
+            </Text>
+          </View>
+        }
+      />
     </View>
   );
 }
