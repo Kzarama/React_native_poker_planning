@@ -50,3 +50,21 @@ export const resetPlayers = (users: IUser[]): IUser[] => {
     vote: undefined,
   }));
 };
+
+export const changeAdminRole = (users: IUser[], user: IUser) => {
+  users.forEach((u) => {
+    if (u.isAdmin) {
+      u.isAdmin = false;
+    }
+  });
+
+  const target = users.find((u) => u.id === user.id);
+  if (target) {
+    target.isAdmin = true;
+  } else {
+    user.isAdmin = true;
+    users.push(user);
+  }
+
+  return users;
+};

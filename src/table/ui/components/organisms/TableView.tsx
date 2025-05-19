@@ -27,14 +27,6 @@ export default function TableView({ userInfo }: IProps) {
   const setUsers = useTableStore((state) => state.setUsers);
   const setUserInfo = useUserStore((state) => state.setUserInfo);
 
-  const userCardVerification = ({ userType, vote }: IUser) => {
-    if (userType === 'player') {
-      if (vote !== undefined && !showScores) return 'active';
-    } else {
-      return 'user';
-    }
-  };
-
   const handleTableButton = () => {
     if (showScores) {
       setUsers(resetPlayers(users));
@@ -44,6 +36,16 @@ export default function TableView({ userInfo }: IProps) {
     }
     if (userInfo.userType === 'viewer') setUsers(vote(users));
     setShowScores(true);
+  };
+
+  const renderContent = () => {
+    if (showScores) return <VotesView />;
+    if (userInfo?.userType === 'player') {
+      return userInfo.id !== undefined ? (
+        <CardsView vote={userInfo.vote} />
+      ) : null;
+    }
+    return <View className='w-[295]' />;
   };
 
   useEffect(() => {
@@ -99,28 +101,20 @@ export default function TableView({ userInfo }: IProps) {
             player.id && (
               <UserView
                 key={player.id}
-                userName={player.name}
-                score={player.vote}
-                showScore={showScores}
+                user={player}
+                showScores={showScores}
                 position={
                   orientation === 'portrait'
                     ? player.position.portrait
                     : player.position.landscape
                 }
-                type={userCardVerification(player)}
               />
             )
           );
         })}
       </View>
 
-      {showScores ? (
-        <VotesView />
-      ) : userInfo?.userType === 'player' ? (
-        <CardsView vote={userInfo.vote} />
-      ) : (
-        <View className='w-[295]' />
-      )}
+      {renderContent()}
     </View>
   );
 }
