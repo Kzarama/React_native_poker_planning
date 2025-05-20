@@ -1,4 +1,3 @@
-// src/styles/colors.js
 export const colors = {
   theme_purple_bg: '#6429CD',
   theme_purple: '#BB65FF',

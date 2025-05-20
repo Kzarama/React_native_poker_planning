@@ -9,7 +9,7 @@
     "newArchEnabled": true,
     "scheme": "poker",
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,18 +19,30 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.kzarama.planning_poker"
     },
     "web": {
-      "favicon": "./assets/favicon.png",
+      "favicon": "./assets/icon.png",
       "bundler": "metro"
     },
     "plugins": [
       "expo-router",
-      ["expo-screen-orientation", { "initialOrientation": "DEFAULT" }]
-    ]
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "DEFAULT"
+        }
+      ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "57055de1-e4b4-44c2-b66e-cf64eb42c6dd"
+      }
+    }
   }
 }
